@@ -2,7 +2,12 @@ package main
 
 import (
 	"context"
+	"errors"
+	"fmt"
 	"log"
+	"os"
+	"os/signal"
+	"syscall"
 
 	"golang.org/x/sync/errgroup"
 )
@@ -26,4 +31,26 @@ func main() {
 		return j.Stop(ctx) // TODO: stop cron and ever
 	})
 
+	// Graceful stop
+	sigs := make(chan os.Signal, 1)
+	signal.Notify(sigs, syscall.SIGTERM, syscall.SIGINT, syscall.SIGQUIT)
+	g.Go(func() error {
+		select {
+		case sig := <-sigs:
+			fmt.Println()
+			log.Printf("signal caught: %s, ready to quit...", sig.String())
+			cancel()
+		case <-ctx.Done():
+			return ctx.Err()
+		}
+		return nil
+	})
+
+	if err := g.Wait(); err != nil {
+		if !errors.Is(err, context.Canceled) {
+			log.Printf("not canceled by context: %s", err)
+		} else {
+			log.Println(err)
+		}
+	}
 }
