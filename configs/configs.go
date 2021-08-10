@@ -13,10 +13,18 @@ var ProjectName = "robotclick"
 
 type configuration struct {
 	RootPath string
+	Cron     string `json:"cron"`
 	Window   struct {
-		Name string `json:"name"`
+		Name   string `json:"name"`
+		BMPath string `json:"bm_path"`
 	} `json:"window"`
-	Cron string `json:"cron"`
+	Trips []struct {
+		Name   string `json:"name"`
+		Action string `json:"action"`
+		Double bool   `json:"double"`
+		Msg    string `json:"msg"`
+		Offset []int  `json:"offset"`
+	}
 }
 
 var V = &configuration{}

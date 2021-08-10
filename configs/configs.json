@@ -1,6 +1,23 @@
 {
+	"cron": "0 0 8,15 * * *",
 	"window":{
-		"name": "myapp"
+		"name": "myapp",
+		"bm_path":"bitmaps"
 	},
-	"cron": "0 0 8,15 * * *"
+	"trips":[
+		{
+			"name": "1",
+			"action":"click",
+			"double":true,
+			"msg":"",
+			"offset":[0,0]
+		},
+		{
+			"name":"2",
+			"action":"input",
+			"double":false,
+			"msg":"what ever",
+			"offset":[0,0]
+		}
+	]
 }
