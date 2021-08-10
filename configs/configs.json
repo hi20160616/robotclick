@@ -1,23 +1,23 @@
 {
 	"cron": "0 0 8,15 * * *",
 	"window":{
-		"name": "myapp",
-		"bm_path":"bitmaps"
+		"name": "iTerm2",
+		"bmp_path":"bitmaps"
 	},
 	"trips":[
 		{
-			"name": "1",
+			"name": "1.png",
 			"action":"click",
-			"double":true,
+			"double":false,
 			"msg":"",
 			"offset":[0,0]
 		},
 		{
-			"name":"2",
+			"name":"2.png",
 			"action":"input",
 			"double":false,
-			"msg":"what ever",
-			"offset":[0,0]
+			"msg":"Hello world!\n",
+			"offset":[]
 		}
 	]
 }

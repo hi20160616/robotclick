@@ -15,8 +15,8 @@ type configuration struct {
 	RootPath string
 	Cron     string `json:"cron"`
 	Window   struct {
-		Name   string `json:"name"`
-		BMPath string `json:"bm_path"`
+		Name    string `json:"name"`
+		BMPPath string `json:"bmp_path"`
 	} `json:"window"`
 	Trips []struct {
 		Name   string `json:"name"`

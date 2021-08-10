@@ -21,7 +21,7 @@ func main() {
 	fmt.Println("color----", color)
 
 	// bitmap
-	bitmap := robotgo.CaptureScreen(10, 20, 30, 40)
+	bitmap := robotgo.CaptureScreen(0, 0, 700, 24)
 	// use `defer robotgo.FreeBitmap(bit)` to free the bitmap
 	defer robotgo.FreeBitmap(bitmap)
 	fmt.Println("...", bitmap)
