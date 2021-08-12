@@ -17,3 +17,4 @@
 # Other types
 .DS_Store
 *.swp
+dist/
