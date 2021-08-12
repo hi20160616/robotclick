@@ -12,7 +12,15 @@ builds:
     goos:
       - windows
 archives:
-  - replacements:
+  - 
+    format_overrides:
+      - goos: windows
+        format: zip
+    files:
+      - configs/configs.json
+      - README.md
+      - LICENSE
+    replacements:
       windows: Windows
       386: i386
       amd64: x86_64
