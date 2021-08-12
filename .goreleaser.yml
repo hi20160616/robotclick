@@ -12,6 +12,7 @@ builds:
     id: "RobotClick"
     env:
       - CGO_ENABLED=1
+    goarch: "386"
     goos:
       - windows
 archives:
