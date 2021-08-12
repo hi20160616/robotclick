@@ -1,27 +1,28 @@
 {
-	"cron": "0 0 8,15 * * *",
-	"window":{
-		"name": "iTerm2",
-		"bmp_path":"bitmaps"
+    "debug":false,
+    "cron": "0 0 8,15 * * *",
+    "window":{
+	"name": "iTerm2",
+	"bmp_path":"bitmaps"
+    },
+    "trips":[
+	{
+	    "name": "1.png",
+	    "action":"click",
+	    "double":false,
+	    "msg":"",
+	    "offset":[135,12]
 	},
-	"trips":[
-		{
-			"name": "1.png",
-			"action":"click",
-			"double":false,
-			"msg":"",
-			"offset":[135,12]
-		},
-		{
-			"name": "1.png",
-			"action":"click",
-			"double":false,
-			"msg":"",
-			"offset":[135,36]
-		},
-		{
-			"action":"input",
-			"msg":"Hello world!"
-		}
-	]
+	{
+	    "name": "1.png",
+	    "action":"click",
+	    "double":false,
+	    "msg":"",
+	    "offset":[135,36]
+	},
+	{
+	    "action":"input",
+	    "msg":"Hello world!"
+	}
+    ]
 }

@@ -13,6 +13,7 @@ var ProjectName = "robotclick"
 
 type configuration struct {
 	RootPath string
+	Debug    bool
 	Cron     string `json:"cron"`
 	Window   struct {
 		Name    string `json:"name"`

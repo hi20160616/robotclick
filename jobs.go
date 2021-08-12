@@ -28,9 +28,13 @@ func NewJob() *Job {
 func (j *Job) Start(ctx context.Context) error {
 	do := func() {
 		log.Println("Job start.")
-		// do sth
+		if err := NewTrip().working(); err != nil {
+			log.Println(err)
+		}
 	}
-	do() // just working at started.
+	if configs.V.Debug {
+		do() // just working at started.
+	}
 
 	j.c.AddFunc(configs.V.Cron, do)
 	j.c.Start()
