@@ -7,7 +7,7 @@ on:
 
 jobs:
   goreleaser:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       -
         name: Checkout
@@ -26,9 +26,6 @@ jobs:
           install-only: true
       -
         name: Install MinGW
-        run: choco install mingw
-      -
-        name: GoReleaser Release
-        run: goreleaser --rm-dist
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: sudo apt-get install gcc-multilib
+        run: sudo apt-get install gcc-mingw-w64
+        run: GOOS=windows GOARCH=amd64 CGO_ENABLED=1 CC=x86_64-w64-mingw32-gcc CXX=x86_64-w64-mingw32-g++ go build -x ./
