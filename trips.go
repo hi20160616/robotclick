@@ -40,11 +40,12 @@ func (t *Trip) working() error {
 			if err != nil {
 				return err
 			}
+			p = &Pos{X: p.X + trip.Offset[0], Y: p.Y + trip.Offset[1]}
 			click(p, trip.Double)
 		case "input":
-			robotgo.TypeStrDelay(trip.Msg, 1)
-			// robotgo.KeyTap("enter")
+			robotgo.TypeStr(trip.Msg, 1)
 		}
+		// robotgo.MilliSleep(500)
 	}
 	return nil
 }
@@ -59,7 +60,10 @@ func getPos(name string) (*Pos, error) {
 
 func findBitmap(imgsrc string) (*Pos, error) {
 	cb := robotgo.OpenBitmap(imgsrc)
-	fx, fy := robotgo.FindBitmap(cb)
+	defer robotgo.FreeBitmap(cb)
+	// s := robotgo.TostringBitmap(cb)
+	// fmt.Println(s)
+	fx, fy := robotgo.FindBitmap(cb, nil, 0.1) // last arg is tolerance
 	if fx < 0 || fy < 0 {
 		return nil, fmt.Errorf("find none: (%d, %d)", fx, fy)
 	}
@@ -67,6 +71,6 @@ func findBitmap(imgsrc string) (*Pos, error) {
 }
 
 func click(p *Pos, double bool) {
-	robotgo.MouseToggle("up")
-	robotgo.MoveClick(p.X, p.Y, "left", double)
+	robotgo.MoveMouseSmooth(p.X, p.Y, 1.0, 0.3)
+	robotgo.Click()
 }

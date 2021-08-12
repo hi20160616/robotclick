@@ -10,14 +10,18 @@
 			"action":"click",
 			"double":false,
 			"msg":"",
-			"offset":[0,0]
+			"offset":[135,12]
 		},
 		{
-			"name":"2.png",
-			"action":"input",
+			"name": "1.png",
+			"action":"click",
 			"double":false,
-			"msg":"Hello world!\n",
-			"offset":[]
+			"msg":"",
+			"offset":[135,36]
+		},
+		{
+			"action":"input",
+			"msg":"Hello world!"
 		}
 	]
 }

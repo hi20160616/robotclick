@@ -16,7 +16,7 @@ func TestWorking(t *testing.T) {
 }
 
 func TestFindBitmap(t *testing.T) {
-	tc := filepath.Join(configs.V.RootPath, "configs", configs.V.Window.BMPPath, "1.png")
+	tc := filepath.Join(configs.V.RootPath, "configs", configs.V.Window.BMPPath, "5.png")
 	p, err := findBitmap(tc)
 	if err != nil {
 		t.Error(err)
