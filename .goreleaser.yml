@@ -1,4 +1,4 @@
-# This is an example .goreleaser.yml file with some sane defaults.
+ This is an example .goreleaser.yml file with some sane defaults.
 # Make sure to check the documentation at http://goreleaser.com
 before:
   hooks:
@@ -7,15 +7,27 @@ before:
     # you may remove this if you don't need go generate
     # - go generate ./...
 builds:
-  - 
-    main: "."
-    id: "RobotClick"
+  -
+    main: "./"
+    id: "RobotClick-x86_64"
     env:
       - CGO_ENABLED=1
-    goos:
-      - windows
+      - CC=x86_64-w64-mingw32-gcc
+      - CXX=x86_64-w64-mingw32-g++
+    goos: [windows]
+    goarch: [amd64]
+  -
+    main: "./"
+    id: "RobotClick-i386"
+    env:
+      - CGO_ENABLED=1
+      - CC=i686-w64-mingw32-gcc
+      - CXX=i686-w64-mingw32-g++
+    goos: [windows]
+    goarch: [386]
+
 archives:
-  - 
+  -
     format_overrides:
       - goos: windows
         format: zip
