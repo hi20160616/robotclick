@@ -32,4 +32,6 @@ jobs:
           sudo apt install xcb libxcb-xkb-dev x11-xkb-utils libx11-xcb-dev libxkbcommon-x11-dev
           sudo apt install libxkbcommon-dev
           sudo apt install xsel xclip
-          GOOS=windows GOARCH=amd64 CGO_ENABLED=1 CC=x86_64-w64-mingw32-gcc CXX=x86_64-w64-mingw32-g++ go build -x ./
+          sudo apt-get install gcc-multilib
+          sudo apt-get install gcc-mingw-w64
+          sudo apt install libz-mingw-w64-dev
