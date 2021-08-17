@@ -7,7 +7,7 @@ on:
 
 jobs:
   goreleaser:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       -
         name: Checkout
@@ -19,6 +19,17 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: '^1.13.1' # The Go version to download (if necessary) and use.
+      -
+        name: Set up Cross-compile ENV
+        run: |
+          sudo apt install gcc libc6-dev
+          sudo apt install libx11-dev xorg-dev libxtst-dev libpng++-dev
+          sudo apt install xcb libxcb-xkb-dev x11-xkb-utils libx11-xcb-dev libxkbcommon-x11-dev
+          sudo apt install libxkbcommon-dev
+          sudo apt install xsel xclip
+          sudo apt-get install gcc-multilib
+          sudo apt-get install gcc-mingw-w64
+          sudo apt install libz-mingw-w64-dev
       -
         name: Install GoReleaser
         uses: goreleaser/goreleaser-action@v2
