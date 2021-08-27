@@ -45,26 +45,39 @@ func (t *Trip) treatSnippet(s *configs.Snippet) error {
 		switch trip.Action {
 		case "click":
 			// get position
-			p, err := getPos(s, trip.Name)
-			if err != nil {
-				return err
+			if trip.Name != "" {
+				p, err := getPos(s, trip.Name)
+				if err != nil {
+					return err
+				}
+				p = &Pos{X: p.X + trip.Offset[0], Y: p.Y + trip.Offset[1]}
+				click(p, trip.Double)
+			} else {
+				x, y := robotgo.GetMousePos()
+				p := &Pos{X: x + trip.Offset[0], Y: y + trip.Offset[1]}
+				click(p, trip.Double)
 			}
-			p = &Pos{X: p.X + trip.Offset[0], Y: p.Y + trip.Offset[1]}
-			click(p, trip.Double)
 		case "input":
 			robotgo.TypeStr(trip.Msg, 1)
 		case "type":
 			for _, k := range trip.Keys {
-				robotgo.KeyTap(k.Key, k.Attr)
+				if k.Attr != nil {
+					robotgo.KeyTap(k.Key, k.Attr)
+				}
+				robotgo.KeyTap(k.Key)
+				robotgo.MilliSleep(500)
 			}
 		}
-		// robotgo.MilliSleep(500)
+		robotgo.MilliSleep(trip.Delay)
 	}
 	return nil
 }
 
 func getPos(s *configs.Snippet, name string) (*Pos, error) {
-	bPath := filepath.Join(configs.V.RootPath, "configs", s.Window.BMPPath, name)
+	bPath := filepath.Join(configs.V.RootPath,
+		"configs",
+		configs.V.Snippets.Folder,
+		s.Window.BMPPath, name)
 	if !gears.Exists(bPath) {
 		return nil, fmt.Errorf("no bitmap find out: %s", bPath)
 	}
@@ -76,7 +89,7 @@ func findBitmap(imgsrc string) (*Pos, error) {
 	defer robotgo.FreeBitmap(cb)
 	// s := robotgo.TostringBitmap(cb)
 	// fmt.Println(s)
-	fx, fy := robotgo.FindBitmap(cb, nil, 0.1) // last arg is tolerance
+	fx, fy := robotgo.FindBitmap(cb, nil, configs.V.Tolerance) // last arg is tolerance
 	if fx < 0 || fy < 0 {
 		return nil, fmt.Errorf("find none: (%d, %d)", fx, fy)
 	}

@@ -1,0 +1,44 @@
+{
+    "window":{
+	"name": "iTerm2",
+	"bmp_path":"locatemaps"
+    },
+    "trips":[
+	{
+	    "name": "1.png",
+	    "action":"click",
+	    "double":false,
+	    "msg":"",
+	    "offset":[135,12],
+	    "delay": 1000
+	},
+	{
+	    "action":"type",
+	    "keys":[
+		    {"key":"down"},
+		    {"key":"down"},
+		    {"key":"down"},
+		    {"key":"enter"}
+	    ],
+	    "delay": 1000
+	},
+	{
+	    "action":"type",
+	    "keys":[
+		{"key":"v", "attr":["command"]},
+		{"key":"enter"},
+		{"key":"left"},
+		{"key":"left"},
+		{"key":"a"},
+		{"key":"b"},
+		{"key":"c"}
+	    ],
+	    "delay": 1000
+	},
+	{
+	    "action":"input",
+	    "msg":"Hello world!",
+	    "delay": 1000
+	}
+    ]
+}

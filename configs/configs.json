@@ -1,8 +1,9 @@
 {
     "debug":false,
     "cron": "0 0 8,15 * * *",
+    "tolerance": 0.2,
     "snippets": {
 	"folder": "snippets",
-	"files": ["test.json"]
+	"files": ["test1.json", "test2.json"]
     }
 }

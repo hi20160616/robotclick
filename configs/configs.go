@@ -11,10 +11,11 @@ import (
 var ProjectName = "robotclick"
 
 type configuration struct {
-	RootPath string
-	Debug    bool
-	Cron     string `json:"cron"`
-	Snippets struct {
+	RootPath  string
+	Debug     bool
+	Cron      string  `json:"cron"`
+	Tolerance float64 `json:"tolerance"`
+	Snippets  struct {
 		Folder string    `json:"folder"`
 		Files  []string  `json:"files"`
 		Ss     []Snippet // the content of jsons loaded.
@@ -36,6 +37,7 @@ type Snippet struct {
 			Key  string   `json:"key"`
 			Attr []string `json:"attr"`
 		} `json:"keys"`
+		Delay int `json:"delay"` // million seconds
 	}
 }
 
@@ -67,7 +69,7 @@ func load() error {
 	// load scripts
 	for _, sf := range V.Snippets.Files {
 		s := &Snippet{}
-		scriptPath := filepath.Join(V.Snippets.Folder, sf)
+		scriptPath := filepath.Join(filepath.Dir(cf), V.Snippets.Folder, sf)
 		f, err := os.ReadFile(scriptPath)
 		if err != nil {
 			return err

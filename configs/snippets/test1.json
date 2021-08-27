@@ -8,26 +8,30 @@
 	    "name": "1.png",
 	    "action":"click",
 	    "double":false,
-	    "msg":"",
-	    "offset":[135,12]
+	    "offset":[135,12],
+	    "delay": 1000
 	},
 	{
-	    "name": "1.png",
 	    "action":"click",
 	    "double":false,
-	    "msg":"",
-	    "offset":[135,36]
+	    "offset":[0,24],
+	    "delay": 1000
 	},
 	{
 	    "action":"type",
 	    "keys":[
 		{"key":"enter"},
-		{"key":"v", "attr":["command"]}
-	    ]
+		{"key":"v", "attr":["command"]},
+		{"key":"left"},
+		{"key":"left"},
+		{"key":"a"}
+	    ],
+	    "delay": 1000
 	},
 	{
 	    "action":"input",
-	    "msg":"Hello world!"
+	    "msg":"Hello world!",
+	    "delay": 1000
 	}
     ]
 }

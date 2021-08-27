@@ -10,7 +10,12 @@ import (
 
 func TestTreatSnippet(t *testing.T) {
 	tc := NewTrip()
+	// test test1.json
 	if err := tc.treatSnippet(&configs.V.Snippets.Ss[0]); err != nil {
+		t.Error(err)
+	}
+	// test test2.json
+	if err := tc.treatSnippet(&configs.V.Snippets.Ss[1]); err != nil {
 		t.Error(err)
 	}
 }
