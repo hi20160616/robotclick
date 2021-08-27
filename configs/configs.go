@@ -5,7 +5,6 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"runtime"
 	"strings"
 )
 
@@ -15,7 +14,15 @@ type configuration struct {
 	RootPath string
 	Debug    bool
 	Cron     string `json:"cron"`
-	Window   struct {
+	Snippets struct {
+		Folder string    `json:"folder"`
+		Files  []string  `json:"files"`
+		Ss     []Snippet // the content of jsons loaded.
+	}
+}
+
+type Snippet struct {
+	Window struct {
 		Name    string `json:"name"`
 		BMPPath string `json:"bmp_path"`
 	} `json:"window"`
@@ -25,6 +32,10 @@ type configuration struct {
 		Double bool   `json:"double"`
 		Msg    string `json:"msg"`
 		Offset []int  `json:"offset"`
+		Keys   []struct {
+			Key  string   `json:"key"`
+			Attr []string `json:"attr"`
+		} `json:"keys"`
 	}
 }
 
@@ -43,12 +54,30 @@ func setRootPath() error {
 }
 
 func load() error {
-	cf := filepath.Join(V.RootPath, "configs/configs.json")
+	// load configs
+	cf := filepath.Join(V.RootPath, "configs", "configs.json")
 	f, err := os.ReadFile(cf)
 	if err != nil {
 		return err
 	}
-	return json.Unmarshal(f, V)
+	if err = json.Unmarshal(f, V); err != nil {
+		return err
+	}
+
+	// load scripts
+	for _, sf := range V.Snippets.Files {
+		s := &Snippet{}
+		scriptPath := filepath.Join(V.Snippets.Folder, sf)
+		f, err := os.ReadFile(scriptPath)
+		if err != nil {
+			return err
+		}
+		if err = json.Unmarshal(f, &s); err != nil {
+			return err
+		}
+		V.Snippets.Ss = append(V.Snippets.Ss, *s)
+	}
+	return nil
 }
 
 func init() {
@@ -61,15 +90,18 @@ func init() {
 }
 
 func rootPath4Test() error {
-	ps := strings.Split(V.RootPath, ProjectName)
+	root, err := os.Getwd()
+	if err != nil {
+		return err
+	}
+	ps := strings.Split(root, ProjectName)
 	n := 0
-	if runtime.GOOS == "windows" {
-		n = strings.Count(ps[1], "\\")
-	} else {
-		n = strings.Count(ps[1], "/")
+	if len(ps) > 1 {
+		n = strings.Count(ps[1], string(os.PathSeparator))
 	}
 	for i := 0; i < n; i++ {
-		V.RootPath = filepath.Join("../", V.RootPath)
+		V.RootPath = filepath.Join("../", "./")
 	}
 	return nil
+
 }

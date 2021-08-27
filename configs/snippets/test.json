@@ -1,0 +1,33 @@
+{
+    "window":{
+	"name": "iTerm2",
+	"bmp_path":"locatemaps"
+    },
+    "trips":[
+	{
+	    "name": "1.png",
+	    "action":"click",
+	    "double":false,
+	    "msg":"",
+	    "offset":[135,12]
+	},
+	{
+	    "name": "1.png",
+	    "action":"click",
+	    "double":false,
+	    "msg":"",
+	    "offset":[135,36]
+	},
+	{
+	    "action":"type",
+	    "keys":[
+		{"key":"enter"},
+		{"key":"v", "attr":["command"]}
+	    ]
+	},
+	{
+	    "action":"input",
+	    "msg":"Hello world!"
+	}
+    ]
+}

@@ -28,7 +28,7 @@ func NewJob() *Job {
 func (j *Job) Start(ctx context.Context) error {
 	do := func() {
 		log.Println("Job start.")
-		if err := NewTrip().working(); err != nil {
+		if err := NewTrip().TreatSnippets(); err != nil {
 			log.Println(err)
 		}
 	}
