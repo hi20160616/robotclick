@@ -9,7 +9,7 @@ before:
 builds:
   -
     main: "./"
-    id: "RobotClick-x86_64"
+    id: "RobotClick-64bit"
     env:
       - CGO_ENABLED=1
       - CC=x86_64-w64-mingw32-gcc
@@ -18,7 +18,7 @@ builds:
     goarch: [amd64]
   -
     main: "./"
-    id: "RobotClick-i386"
+    id: "RobotClick-32bit"
     env:
       - CGO_ENABLED=1
       - CC=i686-w64-mingw32-gcc
@@ -33,12 +33,13 @@ archives:
         format: zip
     files:
       - configs/configs.json
+      - snippets/*
       - README.md
       - LICENSE
     replacements:
       windows: Windows
-      386: i386
-      amd64: x86_64
+      386: 32bit
+      amd64: 64bit
 checksum:
   name_template: 'checksums.txt'
 snapshot:
