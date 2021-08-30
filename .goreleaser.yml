@@ -9,7 +9,7 @@ before:
 builds:
   -
     main: "./"
-    id: "RobotClick-x86_64"
+    id: "RobotClick-64bit"
     env:
       - CGO_ENABLED=1
       - CC=x86_64-w64-mingw32-gcc
@@ -18,7 +18,7 @@ builds:
     goarch: [amd64]
   -
     main: "./"
-    id: "RobotClick-i386"
+    id: "RobotClick-32bit"
     env:
       - CGO_ENABLED=1
       - CC=i686-w64-mingw32-gcc
@@ -33,6 +33,7 @@ archives:
         format: zip
     files:
       - configs/configs.json
+      - configs/**/*
       - README.md
       - LICENSE
     replacements:
