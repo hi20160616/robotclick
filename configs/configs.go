@@ -37,7 +37,9 @@ type Snippet struct {
 			Key  string   `json:"key"`
 			Attr []string `json:"attr"`
 		} `json:"keys"`
-		Delay int `json:"delay"` // million seconds
+		DaysAgo int    `json:"days_ago"`
+		Layout  string `json:"layout"`
+		Delay   int    `json:"delay"` // million seconds
 	}
 }
 

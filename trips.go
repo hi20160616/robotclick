@@ -9,6 +9,7 @@ import (
 	_ "image/jpeg"
 	_ "image/png"
 	"path/filepath"
+	"time"
 
 	"github.com/go-vgo/robotgo"
 	"github.com/hi20160616/gears"
@@ -57,6 +58,13 @@ func (t *Trip) treatSnippet(s *configs.Snippet) error {
 				p := &Pos{X: x + trip.Offset[0], Y: y + trip.Offset[1]}
 				click(p, trip.Double)
 			}
+		case "input-days-ago":
+			t := time.Now().AddDate(0, 0, -trip.DaysAgo)
+			layout := "2006-01-02"
+			if trip.Layout != "" {
+				layout = trip.Layout
+			}
+			robotgo.TypeStr(t.Format(layout), 1)
 		case "input":
 			robotgo.TypeStr(trip.Msg, 1)
 		case "type":
@@ -87,8 +95,6 @@ func getPos(s *configs.Snippet, name string) (*Pos, error) {
 func findBitmap(imgsrc string) (*Pos, error) {
 	cb := robotgo.OpenBitmap(imgsrc)
 	defer robotgo.FreeBitmap(cb)
-	// s := robotgo.TostringBitmap(cb)
-	// fmt.Println(s)
 	fx, fy := robotgo.FindBitmap(cb, nil, configs.V.Tolerance) // last arg is tolerance
 	if fx < 0 || fy < 0 {
 		return nil, fmt.Errorf("find none: (%d, %d)", fx, fy)

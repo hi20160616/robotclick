@@ -5,7 +5,7 @@
     },
     "trips":[
 	{
-	    "name": "1.png",
+	    "name": "0.png",
 	    "action":"click",
 	    "double":false,
 	    "offset":[135,12],
@@ -29,8 +29,20 @@
 	    "delay": 1000
 	},
 	{
+	    "action":"input-days-ago",
+	    "layout":"2006-01-02",
+	    "days_ago":1,
+	    "delay": 1000
+	},
+	{
 	    "action":"input",
 	    "msg":"Hello world!",
+	    "delay": 1000
+	},
+	{
+	    "action":"input-days-ago",
+	    "layout":"2006/01/02",
+	    "days_ago":2,
 	    "delay": 1000
 	}
     ]
