@@ -33,7 +33,7 @@ archives:
         format: zip
     files:
       - configs/configs.json
-      - configs/snippets/**/*
+      - configs/**/*
       - README.md
       - LICENSE
     replacements:
