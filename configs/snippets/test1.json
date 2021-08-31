@@ -1,4 +1,5 @@
 {
+    "cron": "0 0 8 * * *",
     "window":{
 	"name": "iTerm2",
 	"bmp_path":"locatemaps"
@@ -30,7 +31,7 @@
 	},
 	{
 	    "action":"input-days-ago",
-	    "layout":"2006-01-02",
+	    "layout":"01-02",
 	    "days_ago":1,
 	    "delay": 1000
 	},

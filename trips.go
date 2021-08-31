@@ -17,37 +17,29 @@ import (
 )
 
 type Trip struct {
+	s *configs.Snippet
 }
 
 type Pos struct {
 	X, Y int
 }
 
-func NewTrip() *Trip {
-	return &Trip{}
+func NewTrip(s *configs.Snippet) *Trip {
+	return &Trip{s: s}
 }
 
-func (t *Trip) TreatSnippets() error {
-	for _, s := range configs.V.Snippets.Ss {
-		if err := t.treatSnippet(&s); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
-func (t *Trip) treatSnippet(s *configs.Snippet) error {
+func (t *Trip) treatSnippet() error {
 	// handle the app window
-	if err := robotgo.ActiveName(s.Window.Name); err != nil {
+	if err := robotgo.ActiveName(t.s.Window.Name); err != nil {
 		return err
 	}
 	// loop the trips in configs.json
-	for _, trip := range s.Trips {
+	for _, trip := range t.s.Trips {
 		switch trip.Action {
 		case "click":
 			// get position
 			if trip.Name != "" {
-				p, err := getPos(s, trip.Name)
+				p, err := getPos(t.s, trip.Name)
 				if err != nil {
 					return err
 				}
@@ -60,7 +52,7 @@ func (t *Trip) treatSnippet(s *configs.Snippet) error {
 			}
 		case "input-days-ago":
 			t := time.Now().AddDate(0, 0, -trip.DaysAgo)
-			layout := "2006-01-02"
+			layout := "01-02" // 2006-01-02
 			if trip.Layout != "" {
 				layout = trip.Layout
 			}

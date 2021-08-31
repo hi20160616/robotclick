@@ -12,23 +12,25 @@ import (
 )
 
 type Job struct {
+	s *configs.Snippet
 	c *cron.Cron
 }
 
-func NewJob() *Job {
-	return &Job{cron.New(
-		cron.WithLogger(
-			cron.VerbosePrintfLogger(
-				log.New(os.Stdout, "cron: ", log.LstdFlags),
+func NewJob(s *configs.Snippet) *Job {
+	return &Job{
+		s: s,
+		c: cron.New(
+			cron.WithLogger(
+				cron.VerbosePrintfLogger(
+					log.New(os.Stdout, "cron: ", log.LstdFlags),
+				),
 			),
-		),
-	)}
+		)}
 }
 
 func (j *Job) Start(ctx context.Context) error {
 	do := func() {
-		log.Println("Job start.")
-		if err := NewTrip().TreatSnippets(); err != nil {
+		if err := NewTrip(j.s).treatSnippet(); err != nil {
 			log.Println(err)
 		}
 	}
@@ -36,7 +38,7 @@ func (j *Job) Start(ctx context.Context) error {
 		do() // just working at started.
 	}
 
-	j.c.AddFunc(configs.V.Cron, do)
+	j.c.AddFunc(j.s.Cron, do)
 	j.c.Start()
 	return ctx.Err()
 }

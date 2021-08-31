@@ -9,13 +9,14 @@ import (
 )
 
 func TestTreatSnippet(t *testing.T) {
-	tc := NewTrip()
 	// test test1.json
-	if err := tc.treatSnippet(&configs.V.Snippets.Ss[0]); err != nil {
+	tc1 := NewTrip(&configs.V.Snippets.Ss[0])
+	if err := tc1.treatSnippet(); err != nil {
 		t.Error(err)
 	}
 	// test test2.json
-	if err := tc.treatSnippet(&configs.V.Snippets.Ss[1]); err != nil {
+	tc2 := NewTrip(&configs.V.Snippets.Ss[1])
+	if err := tc2.treatSnippet(); err != nil {
 		t.Error(err)
 	}
 }

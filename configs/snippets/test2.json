@@ -1,4 +1,5 @@
 {
+    "cron": "0 0 8,15 * * *",
     "window":{
 	"name": "iTerm2",
 	"bmp_path":"locatemaps"

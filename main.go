@@ -9,6 +9,7 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/hi20160616/robotclick/configs"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -19,17 +20,20 @@ func main() {
 	g, ctx := errgroup.WithContext(ctx)
 
 	// Jobs
-	j := NewJob()
-	g.Go(func() error {
-		log.Println("Jobs start")
-		return j.Start(ctx)
-	})
-	g.Go(func() error {
-		defer log.Println("Jobs stop done.")
-		<-ctx.Done() // wait for stop signal
-		log.Println("Jobs stop now...")
-		return j.Stop(ctx) // TODO: stop cron and ever
-	})
+	for _, s := range configs.V.Snippets.Ss {
+		j := NewJob(&s)
+		g.Go(func() error {
+			log.Printf("Job [\"%s\"] start\n", j.s.FileName)
+			return j.Start(ctx)
+		})
+		g.Go(func() error {
+			defer log.Printf("Job [\"%s\"] stop done.\n", j.s.FileName)
+			<-ctx.Done() // wait for stop signal
+			log.Printf("Job [\"%s\"] stop now...\n", j.s.FileName)
+			return j.Stop(ctx) // TODO: stop cron and ever
+		})
+
+	}
 
 	// Graceful stop
 	sigs := make(chan os.Signal, 1)
