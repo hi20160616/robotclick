@@ -38,3 +38,8 @@ sudo apt install libz-mingw-w64-dev
 GOOS=windows GOARCH=amd64 CGO_ENABLED=1 CC=x86_64-w64-mingw32-gcc CXX=x86_64-w64-mingw32-g++ go build -x ./
 GOOS=windows GOARCH=386 CGO_ENABLED=1 CC=i686-w64-mingw32-gcc CXX=i686-w64-mingw32-g++ go build -x ./
 ```
+
+# TODO
+
+- [ ] Identity csv file as snippet
+- [ ] LEGO like snippets

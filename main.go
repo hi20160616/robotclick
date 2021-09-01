@@ -21,6 +21,7 @@ func main() {
 
 	// Jobs
 	for _, s := range configs.V.Snippets.Ss {
+		s := s
 		j := NewJob(&s)
 		g.Go(func() error {
 			log.Printf("Job [\"%s\"] start\n", j.s.FileName)

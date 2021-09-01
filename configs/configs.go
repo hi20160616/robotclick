@@ -72,18 +72,26 @@ func load() error {
 
 	// load scripts
 	for _, sf := range V.Snippets.Files {
-		s := &Snippet{FileName: sf}
-		snippetPath := filepath.Join(filepath.Dir(cf), V.Snippets.Folder, sf)
-		f, err := os.ReadFile(snippetPath)
+		s, err := loadSnippet(sf)
 		if err != nil {
-			return err
-		}
-		if err = json.Unmarshal(f, &s); err != nil {
 			return err
 		}
 		V.Snippets.Ss = append(V.Snippets.Ss, *s)
 	}
 	return nil
+}
+
+func loadSnippet(snippetName string) (*Snippet, error) {
+	s := &Snippet{FileName: snippetName}
+	snippetPath := filepath.Join(filepath.Join(V.RootPath, "configs"), V.Snippets.Folder, s.FileName)
+	f, err := os.ReadFile(snippetPath)
+	if err != nil {
+		return nil, err
+	}
+	if err = json.Unmarshal(f, &s); err != nil {
+		return nil, err
+	}
+	return s, nil
 }
 
 func init() {

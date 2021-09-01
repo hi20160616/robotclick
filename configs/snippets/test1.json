@@ -1,12 +1,12 @@
 {
-    "cron": "0 0 8 * * *",
+    "cron": "17 11 * * *",
     "window":{
 	"name": "iTerm2",
 	"bmp_path":"locatemaps"
     },
     "trips":[
 	{
-	    "name": "0.png",
+	    "name": "1.png",
 	    "action":"click",
 	    "double":false,
 	    "offset":[135,12],
